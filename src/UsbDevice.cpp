@@ -27,8 +27,8 @@ UsbDevice* UsbDevice::createFromConnectedDevice(u_int16_t vendorID,
 		struct usb_device *dev = bus->devices;
 
 		while (targetDeviceHandle == NULL && (dev = dev->next)) {
-			if (dev->descriptor.idVendor == productID
-					&& dev->descriptor.idProduct == vendorID) {
+			if (dev->descriptor.idVendor == vendorID
+					&& dev->descriptor.idProduct == productID) {
 				targetDeviceHandle = usb_open(dev);
 				usb_detach_kernel_driver_np(targetDeviceHandle, 0);
 				usb_claim_interface(targetDeviceHandle, 0);
