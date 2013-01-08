@@ -21,7 +21,7 @@ int main() {
 
 	while (pButton->isConnected()) {
 		if (pButton->isPressed()) {
-			cout << "Button pressed\n";
+			cout << "Panic button is down\n";
 		}
 
 		usleep(100*1000);
