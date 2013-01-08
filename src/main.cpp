@@ -20,7 +20,7 @@ int main() {
 	}
 
 	while (pButton->isConnected()) {
-		if (pButton->buttonIsPressed()) {
+		if (pButton->isPressed()) {
 			cout << "Button pressed\n";
 		}
 

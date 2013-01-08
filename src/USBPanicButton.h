@@ -13,17 +13,22 @@
 #define ID_VENDOR 0x1d34
 #define ID_PRODUCT 0x000d
 
+enum ButtonState {
+	DOWN, UP, UNKNOWN
+};
+
 class USBPanicButton {
 public:
 	static USBPanicButton* createFromConnectedDevice();
 
 	USBPanicButton(UsbDevice* panicButtonDevice);
-    bool isConnected();
-	bool buttonIsPressed();
-    void close();
+	bool isConnected();
+	ButtonState requestButtonState();
+	bool isPressed();
+	void close();
 private:
-    bool requestButtonState();
-    UsbDevice* panicButtonDevice;
+
+	UsbDevice* panicButtonDevice;
 };
 
 #endif
