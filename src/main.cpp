@@ -15,16 +15,21 @@ int main() {
 	USBPanicButton* pButton = USBPanicButton::createFromConnectedDevice();
 
 	if (pButton == NULL) {
-		cout << "No panic button detected";
+		cout << "No panic button detected\n";
 		return 0;
 	}
 
+	ButtonState lastButtonState = UNKNOWN;
+
 	while (pButton->isConnected()) {
-		if (pButton->isPressed()) {
-			cout << "Panic button is down\n";
+		ButtonState currentButtonState = pButton->getButtonState();
+
+		if (currentButtonState == DOWN && lastButtonState == UP) {
+			cout << "Panic button pressed\n";
 		}
 
-		usleep(100*1000);
+		lastButtonState = currentButtonState;
+		usleep(100 * 1000);
 	}
 	pButton->close();
 	delete pButton;

@@ -23,8 +23,8 @@ public:
 
 	USBPanicButton(UsbDevice* panicButtonDevice);
 	bool isConnected();
-	ButtonState requestButtonState();
-	bool isPressed();
+	ButtonState getButtonState();
+	bool isDown();
 	void close();
 private:
 
