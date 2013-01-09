@@ -17,7 +17,7 @@ USBPanicButton* USBPanicButton::createFromConnectedDevice() {
 }
 
 ButtonState USBPanicButton::getButtonState() {
-	char bytes[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
+	unsigned char bytes[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
 	int requestType = 0x21;
 	int request = 0x9;
 	int value = 0x200;
@@ -29,10 +29,10 @@ ButtonState USBPanicButton::getButtonState() {
 			timeout, bytes, size))
 		return UNKNOWN;
 
-	char *usbDeviceData = new char[8];
+	unsigned char usbDeviceData[8];
 	panicButtonDevice->readData(usbDeviceData, 8, 500);
 	int receivedFirstByteValue = usbDeviceData[0];
-	delete usbDeviceData;
+
 	return receivedFirstByteValue == 22 ? DOWN : UP;
 }
 
