@@ -7,11 +7,12 @@
 //============================================================================
 
 #include <iostream>
-#include <usb.h>
+#include <libusb-1.0/libusb.h>
+#include <stdlib.h>
 #include "USBPanicButton.h"
 using namespace std;
 
-int main() {
+int main(int argc, char **argv) {
 	USBPanicButton* pButton = USBPanicButton::createFromConnectedDevice();
 
 	if (pButton == NULL) {
@@ -25,7 +26,10 @@ int main() {
 		ButtonState currentButtonState = pButton->getButtonState();
 
 		if (currentButtonState == DOWN && lastButtonState == UP) {
-			cout << "Panic button pressed\n";
+			if (argc > 1)
+				system(argv[1]);
+			else
+				system("xdg-open http://xkcd.com/898/");
 		}
 
 		lastButtonState = currentButtonState;

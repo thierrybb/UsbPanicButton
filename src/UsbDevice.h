@@ -8,25 +8,25 @@
 #ifndef USBDEVICE_H_
 #define USBDEVICE_H_
 
-#include <usb.h>
+#include <libusb-1.0/libusb.h>
 
 class UsbDevice {
 public:
 	static UsbDevice* createFromConnectedDevice(u_int16_t vendorID,
 			u_int16_t productID);
 
-	UsbDevice(usb_dev_handle *targetDeviceHandle);
+	UsbDevice(libusb_device_handle *targetDeviceHandle);
 
 	bool sendControlMsg(int rquestType, int request, int wValue, int wIndex,
-			int timeout, char* data, int dataSize);
-	void readData(char *data, int size, int timout = 500);
+			int timeout, unsigned char* data, int dataSize);
+	void readData(unsigned char *data, int size, int timout = 500);
 	virtual ~UsbDevice();
 
 	bool isConnected();
 	void close();
 
 private:
-	struct usb_dev_handle *deviceHandle;
+	struct libusb_device_handle *deviceHandle;
 };
 
 #endif /* USBDEVICE_H_ */
