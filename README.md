@@ -28,7 +28,7 @@ Configuring to run as normal user
 Usage: panicbutton _'the command to run'_
 -----------------------------------------
 
-The following example run the tesst in IntelliJ IDEA when pressing the button
+The following example run the tests in IntelliJ IDEA when pressing the button
         
         # sudo apt-get install xautomation
         # panicbutton 'xte "keydown Shift_L" "keydown F10" "keyup F10" "keyup Shift_L"' &
