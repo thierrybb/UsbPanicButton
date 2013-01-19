@@ -29,7 +29,7 @@ ButtonState USBPanicButton::getButtonState() {
 			timeout, bytes, size))
 		return UNKNOWN;
 
-	unsigned char usbDeviceData[8];
+	unsigned char usbDeviceData[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 	panicButtonDevice->readData(usbDeviceData, 8, 500);
 	int receivedFirstByteValue = usbDeviceData[0];
 
