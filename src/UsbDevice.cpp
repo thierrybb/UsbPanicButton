@@ -6,6 +6,7 @@
  */
 
 #include "UsbDevice.h"
+#include <iostream>
 
 UsbDevice::UsbDevice(libusb_device_handle *targetDeviceHandle) {
 	deviceHandle = targetDeviceHandle;
@@ -26,7 +27,13 @@ UsbDevice* UsbDevice::createFromConnectedDevice(u_int16_t vendorID,
 	if (libusb_kernel_driver_active(targetDeviceHandle, 0) > 0)
 		libusb_detach_kernel_driver(targetDeviceHandle, 0);
 
-	libusb_claim_interface(targetDeviceHandle, 0);
+	int r = libusb_claim_interface(targetDeviceHandle, 0);
+
+	if (r == LIBUSB_ERROR_ACCESS) {
+		std::cerr << "Access error trying to claim device interface" << std::endl;
+		return NULL;
+	}
+
 	return new UsbDevice(targetDeviceHandle);
 }
 
